@@ -17,7 +17,10 @@ class ComplexEncoder(json.JSONEncoder):
             return json.JSONEncoder.default(self, obj)
 
 
-today = datetime.now()
+
+nowtime = datetime.utcnow() + timedelta(hours=8)  # 东八区时间
+today = datetime.strptime(str(nowtime.date()), "%Y-%m-%d") #今天的日期
+
 start_date = os.environ['START_DATE']
 city = os.environ['CITY']
 birthday = os.environ['BIRTHDAY_JING']
@@ -68,7 +71,7 @@ client = WeChatClient(app_id, app_secret)
 wm = WeChatMessage(client)
 wea, temperature, airQuality, low_temp, high_temp= get_weather()
 data = {"city":{"value":city, "color":get_random_color()},
-        "date":{"value":today, "color":get_random_color()},
+        "date":{"value":today.strftime('%Y年%m月%d日'), "color":get_random_color()},
         "weather":{"value":wea, "color":get_random_color()},
         "temperature":{"value":temperature, "color":get_random_color()},
         "airQuality":{"value":airQuality, "color":get_random_color()},
@@ -78,6 +81,6 @@ data = {"city":{"value":city, "color":get_random_color()},
         "birthday_left":{"value":get_birthday(), "color":get_random_color()},
         "birthday_left1":{"value":get_birthday1(), "color":get_random_color()},
         "words":{"value":get_words(), "color":get_random_color()}}
-data = json.dumps(data,cls=ComplexEncoder)
+# data = json.dumps(data,cls=ComplexEncoder)
 res = wm.send_template(user_id, template_id, data)
 print(res)
