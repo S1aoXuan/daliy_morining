@@ -30,6 +30,7 @@ app_id = os.environ["APP_ID"]
 app_secret = os.environ["APP_SECRET"]
 
 user_id = os.environ["USER_ID"]
+user_id_1 = os.environ["USER_ID_1"]
 template_id = os.environ["TEMPLATE_ID"]
 
 
@@ -83,4 +84,6 @@ data = {"city":{"value":city, "color":get_random_color()},
         "words":{"value":get_words(), "color":get_random_color()}}
 # data = json.dumps(data,cls=ComplexEncoder)
 res = wm.send_template(user_id, template_id, data)
+res_1 = wm.send_template(user_id_1, template_id, data)
 print(res)
+print(res_1)
