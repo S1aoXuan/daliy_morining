@@ -70,6 +70,6 @@ wea, temperature, airQuality, low_temp, high_temp= get_weather()
 data = [{"city":{"value":city},"date":{"value":today},"weather":{"value":wea},"temperature":{"value":temperature},"airQuality":{"value":airQuality},
         "min_temperature":{"value":low_temp},"max_temperature":{"value":high_temp},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},
         "birthday_left1":{"value":get_birthday1()},"words":{"value":get_words(), "color":get_random_color()}}]
-data = json.dumps(data)
+data = json.dumps(data,cls=ComplexEncoder)
 res = wm.send_template(user_id, template_id, data)
 print(res)
