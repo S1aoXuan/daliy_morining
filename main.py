@@ -67,9 +67,17 @@ client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
 wea, temperature, airQuality, low_temp, high_temp= get_weather()
-data = {"city":{"value":city},"date":{"value":today},"weather":{"value":wea},"temperature":{"value":temperature},"airQuality":{"value":airQuality},
-        "min_temperature":{"value":low_temp},"max_temperature":{"value":high_temp},"love_days":{"value":get_count()},"birthday_left":{"value":get_birthday()},
-        "birthday_left1":{"value":get_birthday1()},"words":{"value":get_words(), "color":get_random_color()}}
+data = {"city":{"value":city, "color":get_random_color()},
+        "date":{"value":today, "color":get_random_color()},
+        "weather":{"value":wea, "color":get_random_color()},
+        "temperature":{"value":temperature, "color":get_random_color()},
+        "airQuality":{"value":airQuality, "color":get_random_color()},
+        "min_temperature":{"value":low_temp, "color":get_random_color()},
+        "max_temperature":{"value":high_temp, "color":get_random_color()},
+        "love_days":{"value":get_count(), "color":get_random_color()},
+        "birthday_left":{"value":get_birthday(), "color":get_random_color()},
+        "birthday_left1":{"value":get_birthday1(), "color":get_random_color()},
+        "words":{"value":get_words(), "color":get_random_color()}}
 data = json.dumps(data,cls=ComplexEncoder)
 res = wm.send_template(user_id, template_id, data)
 print(res)
