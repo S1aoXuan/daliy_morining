@@ -67,8 +67,7 @@ def get_cov_data():
   url = "https://voice.baidu.com/newpneumonia/getv2?from=mola-virus&stage=publish&target=trendCity&area=" + "陕西-西安"
   res = requests.get(url).json()
   cov_data = res['data'][0]['trend']['list']
-  print(cov_data[0])
-  return cov_data[0][data][-1],cov_data[1][data][-1] #新增无症状与新增确诊
+  return cov_data[0]['data'][-1],cov_data[1]['data'][-1] #新增无症状与新增确诊
 
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
