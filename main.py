@@ -66,8 +66,8 @@ def get_words():
 def get_cov_data():
   url = "http://api.tianapi.com/ncov/index?key=0a764a755797c95e01cad9af5c0dfc29"
   res = requests.get(url).json()
-  cov_data = res['newslist'][0]['news'][0]
-  return cov_data['summary']
+  cov_data = res['newslist'][0]['news'][0]['summary']
+  return cov_data
 
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
@@ -92,5 +92,5 @@ data = {"city":{"value":city, "color":get_random_color()},
 
 # data = json.dumps(data,cls=ComplexEncoder)
 res = wm.send_template(user_id, template_id, data)
-#res_1 = wm.send_template(user_id_1, template_id, data)
+res_1 = wm.send_template(user_id_1, template_id, data)
 print(res)
