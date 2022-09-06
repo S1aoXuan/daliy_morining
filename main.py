@@ -63,6 +63,12 @@ def get_words():
     return get_words()
   return words.json()['data']['text']
 
+def get_cov_data():
+  url = http://api.tianapi.com/ncov/index?key=0a764a755797c95e01cad9af5c0dfc29
+  res = requests.get(url).json()
+  cov_data = res['newslist'][0]['news'][0]
+  return cov_data['summary']
+
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
 
@@ -81,9 +87,11 @@ data = {"city":{"value":city, "color":get_random_color()},
         "love_days":{"value":get_count(), "color":get_random_color()},
         "birthday_left":{"value":get_birthday(), "color":get_random_color()},
         "birthday_left1":{"value":get_birthday1(), "color":get_random_color()},
-        "words":{"value":get_words(), "color":get_random_color()}}
+        "words":{"value":get_words(), "color":get_random_color()},
+        "cov_data":{"value":get_cov_data(), "color":get_random_color()}}
+
 # data = json.dumps(data,cls=ComplexEncoder)
 res = wm.send_template(user_id, template_id, data)
-res_1 = wm.send_template(user_id_1, template_id, data)
+#res_1 = wm.send_template(user_id_1, template_id, data)
 print(res)
 print(res_1)
