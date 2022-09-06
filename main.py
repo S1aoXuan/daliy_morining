@@ -94,4 +94,3 @@ data = {"city":{"value":city, "color":get_random_color()},
 res = wm.send_template(user_id, template_id, data)
 #res_1 = wm.send_template(user_id_1, template_id, data)
 print(res)
-print(res_1)
