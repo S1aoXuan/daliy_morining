@@ -64,7 +64,7 @@ def get_words():
   return words.json()['data']['text']
 
 def get_cov_data():
-  url = http://api.tianapi.com/ncov/index?key=0a764a755797c95e01cad9af5c0dfc29
+  url = "http://api.tianapi.com/ncov/index?key=0a764a755797c95e01cad9af5c0dfc29"
   res = requests.get(url).json()
   cov_data = res['newslist'][0]['news'][0]
   return cov_data['summary']
