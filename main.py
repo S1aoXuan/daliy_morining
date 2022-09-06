@@ -64,10 +64,10 @@ def get_words():
   return words.json()['data']['text']
 
 def get_cov_data():
-  url = "http://api.tianapi.com/ncov/index?key=0a764a755797c95e01cad9af5c0dfc29"
+  url = "https://voice.baidu.com/newpneumonia/getv2?from=mola-virus&stage=publish&target=trendCity&area=" + "陕西-西安"
   res = requests.get(url).json()
-  cov_data = res['newslist'][0]['news'][0]['summary']
-  return cov_data
+  cov_data = res['data'][0]['trend']['list']
+  return cov_data[0][data][-1],cov_data[1][data][-1] #新增无症状与新增确诊
 
 def get_random_color():
   return "#%06x" % random.randint(0, 0xFFFFFF)
@@ -77,6 +77,8 @@ client = WeChatClient(app_id, app_secret)
 
 wm = WeChatMessage(client)
 wea, temperature, airQuality, low_temp, high_temp= get_weather()
+cov_data_new_asymptomatic,cov_data_new_confirmed = get_cov_data()
+
 data = {"city":{"value":city, "color":get_random_color()},
         "date":{"value":today.strftime('%Y年%m月%d日'), "color":get_random_color()},
         "weather":{"value":wea, "color":get_random_color()},
@@ -88,9 +90,10 @@ data = {"city":{"value":city, "color":get_random_color()},
         "birthday_left":{"value":get_birthday(), "color":get_random_color()},
         "birthday_left1":{"value":get_birthday1(), "color":get_random_color()},
         "words":{"value":get_words(), "color":get_random_color()},
-        "cov_data":{"value":get_cov_data(), "color":get_random_color()}}
+        "cov_data_new_asymptomatic":{"value":cov_data_new_asymptomatic, "color":get_random_color()},
+        "cov_data_new_confirmed":{"value":cov_data_new_confirmed, "color":get_random_color()}}
 
 # data = json.dumps(data,cls=ComplexEncoder)
 res = wm.send_template(user_id, template_id, data)
-res_1 = wm.send_template(user_id_1, template_id, data)
+#res_1 = wm.send_template(user_id_1, template_id, data)
 print(res)
